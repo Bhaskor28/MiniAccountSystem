@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IdentityUser
+
+@{
+    var roles = ViewBag.Roles as List<string>;
+}
+
+<h2>Assign Role to @Model.Email</h2>
+<form asp-action="AssignRole" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <select name="role">
+        @foreach (var role in roles)
+        {
+            <option value="@role">@role</option>
+        }
+    </select>
+    <button type="submit">Assign</button>
+</form>
