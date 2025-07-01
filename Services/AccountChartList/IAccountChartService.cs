@@ -1,6 +1,6 @@
 ﻿using MiniAccountSystem.Models;
 
-namespace MiniAccountSystem.Services
+namespace MiniAccountSystem.Services.AccountChartList
 {
     public interface IAccountChartService
     {

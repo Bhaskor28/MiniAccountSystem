@@ -1,0 +1,43 @@
+﻿@model Voucher
+@{
+    var accounts = ViewBag.Accounts as List<AccountChart>;
+}
+
+<form asp-action="Create">
+    <div>
+        <label>Voucher Type</label>
+        <select asp-for="VoucherType">
+            <option>Journal</option>
+            <option>Payment</option>
+            <option>Receipt</option>
+        </select>
+    </div>
+    <div>
+        <label>Date</label>
+        <input asp-for="VoucherDate" type="date" />
+    </div>
+    <div>
+        <label>Reference No</label>
+        <input asp-for="ReferenceNo" />
+    </div>
+
+    <div id="entries">
+        <h4>Entries</h4>
+        <div class="entry" style="margin-bottom:10px">
+            <select name="Entries[0].AccountId">
+                @foreach (var acc in accounts)
+                {
+                    <option value="@acc.AccountId">@acc.AccountName</option>
+                }
+            </select>
+            <input name="Entries[0].Amount" placeholder="Amount" />
+            <select name="Entries[0].EntryType">
+                <option>Debit</option>
+                <option>Credit</option>
+            </select>
+        </div>
+        <!-- Add JavaScript for dynamic multiple lines (optional) -->
+    </div>
+
+    <button type="submit">Save Voucher</button>
+</form>

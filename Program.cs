@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MiniAccountSystem.Data;
+using MiniAccountSystem.Services.AccountChartList;
 
 var builder = WebApplication.CreateBuilder(args);
 
