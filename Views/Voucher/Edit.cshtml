@@ -1,0 +1,29 @@
+﻿@model Voucher
+@{
+    ViewData["Title"] = "Edit Voucher";
+}
+
+<div class="container mt-4">
+    <h2>Edit Voucher</h2>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="VoucherId" />
+        <div class="mb-3">
+            <label asp-for="VoucherType" class="form-label"></label>
+            <select asp-for="VoucherType" class="form-select">
+                <option>Journal</option>
+                <option>Payment</option>
+                <option>Receipt</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="VoucherDate" class="form-label"></label>
+            <input asp-for="VoucherDate" class="form-control" type="date" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ReferenceNo" class="form-label"></label>
+            <input asp-for="ReferenceNo" class="form-control" />
+        </div>
+        <button class="btn btn-primary">Update</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
