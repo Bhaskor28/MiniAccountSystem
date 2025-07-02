@@ -1,43 +1,72 @@
 ﻿@model Voucher
 @{
+    ViewData["Title"] = "Create Voucher";
     var accounts = ViewBag.Accounts as List<AccountChart>;
 }
 
-<form asp-action="Create">
-    <div>
-        <label>Voucher Type</label>
-        <select asp-for="VoucherType">
-            <option>Journal</option>
-            <option>Payment</option>
-            <option>Receipt</option>
-        </select>
-    </div>
-    <div>
-        <label>Date</label>
-        <input asp-for="VoucherDate" type="date" />
-    </div>
-    <div>
-        <label>Reference No</label>
-        <input asp-for="ReferenceNo" />
-    </div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">Create New Voucher</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label asp-for="VoucherType" class="form-label">Voucher Type</label>
+                            <select asp-for="VoucherType" class="form-select" required>
+                                <option value="">-- Select Type --</option>
+                                <option>Journal</option>
+                                <option>Payment</option>
+                                <option>Receipt</option>
+                            </select>
+                        </div>
 
-    <div id="entries">
-        <h4>Entries</h4>
-        <div class="entry" style="margin-bottom:10px">
-            <select name="Entries[0].AccountId">
-                @foreach (var acc in accounts)
-                {
-                    <option value="@acc.AccountId">@acc.AccountName</option>
-                }
-            </select>
-            <input name="Entries[0].Amount" placeholder="Amount" />
-            <select name="Entries[0].EntryType">
-                <option>Debit</option>
-                <option>Credit</option>
-            </select>
+                        <div class="mb-3">
+                            <label asp-for="VoucherDate" class="form-label">Date</label>
+                            <input asp-for="VoucherDate" type="date" class="form-control" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ReferenceNo" class="form-label">Reference No</label>
+                            <input asp-for="ReferenceNo" class="form-control" placeholder="Enter reference number" required />
+                        </div>
+
+                        <hr />
+                        <h5 class="text-primary">Entries</h5>
+                        <div id="entries">
+                            <div class="row mb-3">
+                                <div class="col-md-5">
+                                    <label class="form-label">Account</label>
+                                    <select name="Entries[0].AccountId" class="form-select" required>
+                                        <option value="">-- Select Account --</option>
+                                        @foreach (var acc in accounts)
+                                        {
+                                            <option value="@acc.AccountId">@acc.AccountName</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Amount</label>
+                                    <input name="Entries[0].Amount" class="form-control" placeholder="Amount" required />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Entry Type</label>
+                                    <select name="Entries[0].EntryType" class="form-select" required>
+                                        <option value="">-- Select Type --</option>
+                                        <option>Debit</option>
+                                        <option>Credit</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success mt-3">Save Voucher</button>
+                        <a asp-action="Index" class="btn btn-secondary mt-3 ms-2">Cancel</a>
+                    </form>
+                </div>
+            </div>
         </div>
-        <!-- Add JavaScript for dynamic multiple lines (optional) -->
     </div>
-
-    <button type="submit">Save Voucher</button>
-</form>
+</div>

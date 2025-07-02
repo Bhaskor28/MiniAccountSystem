@@ -2,17 +2,37 @@
 @model IdentityUser
 
 @{
+    ViewData["Title"] = "Assign Role";
     var roles = ViewBag.Roles as List<string>;
 }
 
-<h2>Assign Role to @Model.Email</h2>
-<form asp-action="AssignRole" method="post">
-    <input type="hidden" name="id" value="@Model.Id" />
-    <select name="role">
-        @foreach (var role in roles)
-        {
-            <option value="@role">@role</option>
-        }
-    </select>
-    <button type="submit">Assign</button>
-</form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Assign Role to <strong>@Model.Email</strong></h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AssignRole" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Select Role</label>
+                            <select name="role" class="form-select" id="role" required>
+                                <option disabled selected value="">-- Choose Role --</option>
+                                @foreach (var role in roles)
+                                {
+                                    <option value="@role">@role</option>
+                                }
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Assign</button>
+                        <a asp-action="Users" class="btn btn-secondary ms-2">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

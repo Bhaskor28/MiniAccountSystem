@@ -2,7 +2,7 @@ CREATE PROCEDURE sp_SaveVoucher
     @VoucherType NVARCHAR(50),
     @VoucherDate DATE,
     @ReferenceNo NVARCHAR(100),
-    @Entries TVP_VoucherEntry READONLY -- use Table-Valued Parameter
+    @Entries TVP_VoucherEntry READONLY 
 AS
 BEGIN
     SET NOCOUNT ON;

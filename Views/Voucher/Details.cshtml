@@ -1,0 +1,22 @@
+﻿@model Voucher
+@{
+    ViewData["Title"] = "Voucher Details";
+}
+<div class="container mt-4">
+    <h3>Voucher Details</h3>
+    <dl class="row">
+        <dt class="col-sm-3">Voucher No</dt>
+        <dd class="col-sm-9">@Model.VoucherId</dd>
+
+        <dt class="col-sm-3">Type</dt>
+        <dd class="col-sm-9">@Model.VoucherType</dd>
+
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">@Model.VoucherDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-3">Reference No</dt>
+        <dd class="col-sm-9">@Model.ReferenceNo</dd>
+    </dl>
+    <a asp-action="Edit" asp-route-id="@Model.VoucherId" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</div>
