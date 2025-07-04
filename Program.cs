@@ -11,6 +11,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 3;
+});
+
 builder.Services.AddScoped<IAccountChartService, AccountChartService>();
 builder.Services.AddScoped<IModuleAccessService, ModuleAccessService>();
 builder.Services.AddScoped<IVoucherService, VoucherService>();
@@ -30,7 +39,7 @@ using (var scope = app.Services.CreateScope())
     }
 
     var adminEmail = "admin@qtec.com";
-    var adminPassword = "hey";
+    var adminPassword = "Hey@123";
 
     var user = await userManager.FindByEmailAsync(adminEmail);
     if (user == null)
@@ -39,6 +48,28 @@ using (var scope = app.Services.CreateScope())
         await userManager.CreateAsync(adminUser, adminPassword);
         await userManager.AddToRoleAsync(adminUser, "Admin");
     }
+    var accountantEmail = "accountant@demo.com";
+    var accountantPassword = "Acc@123";
+
+    var accountantUser = await userManager.FindByEmailAsync(accountantEmail);
+    if (accountantUser == null)
+    {
+        accountantUser = new IdentityUser { UserName = accountantEmail, Email = accountantEmail };
+        await userManager.CreateAsync(accountantUser, accountantPassword);
+        await userManager.AddToRoleAsync(accountantUser, "Accountant");
+    }
+
+    var viewerEmail = "viewer@demo.com";
+    var viewerPassword = "View@123";
+
+    var viewerUser = await userManager.FindByEmailAsync(viewerEmail);
+    if (viewerUser == null)
+    {
+        viewerUser = new IdentityUser { UserName = viewerEmail, Email = viewerEmail };
+        await userManager.CreateAsync(viewerUser, viewerPassword);
+        await userManager.AddToRoleAsync(viewerUser, "Viewer");
+    }
+
 }
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -1,6 +1,13 @@
 ﻿@model List<Voucher>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+
 @{
     ViewData["Title"] = "All Vouchers";
+
+    bool isViewer = User.IsInRole("Viewer");
+    bool isAdminOrAccountant = User.IsInRole("Admin") || User.IsInRole("Accountant");
 }
 
 <div class="container mt-5">
@@ -9,7 +16,10 @@
             <div class="card shadow">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">All Vouchers</h5>
-                    <a asp-action="Create" class="btn btn-light btn-sm">+ New Voucher</a>
+                    @if (isAdminOrAccountant)
+                    {
+                        <a asp-action="Create" class="btn btn-light btn-sm">+ New Voucher</a>
+                    }
                 </div>
                 <div class="card-body">
                     @if (!Model.Any())
@@ -39,8 +49,11 @@
                                             <td>@v.ReferenceNo</td>
                                             <td class="text-center">
                                                 <a asp-action="Details" asp-route-id="@v.VoucherId" class="btn btn-outline-primary btn-sm">View</a>
-                                                <a asp-action="Edit" asp-route-id="@v.VoucherId" class="btn btn-outline-secondary btn-sm">Edit</a>
-                                                <a asp-action="Delete" asp-route-id="@v.VoucherId" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure to delete this voucher?')">Delete</a>
+                                                @if (isAdminOrAccountant)
+                                                {
+                                                    <a asp-action="Edit" asp-route-id="@v.VoucherId" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                                    <a asp-action="Delete" asp-route-id="@v.VoucherId" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure to delete this voucher?')">Delete</a>
+                                                }
                                             </td>
                                         </tr>
                                     }

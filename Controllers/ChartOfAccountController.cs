@@ -5,7 +5,7 @@ using MiniAccountSystem.Services.AccountChartList;
 
 namespace MiniAccountSystem.Controllers
 {
-    //[Authorize(Roles = "Admin,Accountant")]
+    [Authorize(Roles = "Admin,Accountant")]
     public class ChartOfAccountController : Controller
     {
         private readonly IAccountChartService _service;
