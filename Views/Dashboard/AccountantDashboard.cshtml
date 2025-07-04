@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Accountant Dashboard";
+}
+
+<h2 class="mt-4">Welcome Accountant</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card border-success shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Chart of Accounts</h5>
+                <p class="card-text">Maintain accounts chart and hierarchy.</p>
+                <a asp-controller="ChartOfAccount" asp-action="Index" class="btn btn-success">Open</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-info shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Voucher Entry</h5>
+                <p class="card-text">Journal, Payment, and Receipt entries.</p>
+                <a asp-controller="Voucher" asp-action="Index" class="btn btn-info">Go to Vouchers</a>
+            </div>
+        </div>
+    </div>
+</div>
