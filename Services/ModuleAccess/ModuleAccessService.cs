@@ -35,5 +35,21 @@ namespace MiniAccountSystem.Services.ModuleAccess
 
             return modules;
         }
+        public async Task<bool> HasAccessAsync(string role, string moduleName)
+        {
+            using SqlConnection con = new(_connection);
+            using SqlCommand cmd = new("sp_HasAccess", con)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            cmd.Parameters.AddWithValue("@RoleName", role);
+            cmd.Parameters.AddWithValue("@ModuleName", moduleName);
+
+            await con.OpenAsync();
+            var result = await cmd.ExecuteScalarAsync();
+            return Convert.ToInt32(result) == 1;
+        }
+
     }
 }
